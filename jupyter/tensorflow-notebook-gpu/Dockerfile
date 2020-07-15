@@ -21,9 +21,12 @@ LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
 # GPU powered ML
 # ----------------------------------------
+RUN conda config --add channels conda-forge \
+    conda config --set channel_priority flexible
+
+# Default install cudatoolkit&cudnn when install tensorflow-gpu
 RUN conda install -c conda-forge --yes --quiet \
-    tensorflow-gpu \
-    cudatoolkit=9.0 && \
+    tensorflow-gpu=2.2.0 \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
