@@ -26,7 +26,7 @@ RUN conda config --add channels conda-forge && \
 
 # Default install cudatoolkit&cudnn when install tensorflow-gpu
 RUN conda install -c conda-forge --yes --quiet \
-    tensorflow-gpu=2.2.0 \
+    tensorflow-gpu=2.2.0 && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
