@@ -31,10 +31,22 @@ RUN conda install -c conda-forge --yes --quiet \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
+# Install cuda 10.2
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-ubuntu1604.pin && \
+    sudo mv cuda-ubuntu1604.pin /etc/apt/preferences.d/cuda-repository-pin-600 && \
+    sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub && \
+    sudo add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/ /" && \
+    sudo apt-get update && \
+    sudo apt-get -y install cuda
+
 # Allow drivers installed by the nvidia-driver-installer to be located
-ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/nvidia/lib64:/usr/local/nvidia/lib:/usr/local/cuda-10.2/bin/lib64
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/nvidia/lib64:/usr/local/nvidia/lib:/usr/local/cuda-10.2/lib64
 # Also, utilities like `nvidia-smi` are installed here
-ENV PATH=${PATH}:/usr/local/nvidia/bin:/usr/local/cuda-10.2/bin:/usr/local/cuda/bin:
+ENV PATH=${PATH}:/usr/local/nvidia/bin:/usr/local/cuda-10.2/bin:/usr/local/cuda-10.2/NsightCompute-2019.1
+
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
+ENV NVIDIA_REQUIRE_CUDA=cuda>=10.2
 
 # "PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
 #                 "CUDA_VERSION=8.0.61",
