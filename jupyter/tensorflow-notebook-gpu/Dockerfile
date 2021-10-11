@@ -27,7 +27,8 @@ RUN conda config --add channels conda-forge && \
 # Default install cudatoolkit&cudnn when install tensorflow-gpu
 RUN conda install -c conda-forge --yes --quiet \
     tensorflow-gpu=2.2.0 && \
-    cudatoolkit=9.2 && \
+    cudatoolkit=9.2
+RUN conda install pytorch torchvision torchaudio -c pytorch --yes && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
