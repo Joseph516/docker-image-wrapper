@@ -14,7 +14,7 @@ RUN conda config --add channels conda-forge && \
 RUN conda install -c conda-forge --yes --quiet \
     tensorflow-gpu=2.2.0 && \
     cudatoolkit=9.2
-RUN conda install pytorch torchvision -c pytorch --yes && \
+RUN conda install pytorch torchvision torchaudio -c pytorch --yes && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
