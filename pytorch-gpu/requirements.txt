@@ -1,0 +1,8 @@
+# Do not delete it!
+# Empty for default pip, no need to install dependencies.
+
+numpy
+torch
+torchvision
+torchaudio
+matplotlib
